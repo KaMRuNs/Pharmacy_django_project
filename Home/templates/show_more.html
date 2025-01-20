@@ -1,0 +1,33 @@
+{% extends "base.html" %} 
+{% load static %} 
+<!-- <head>
+  <style>
+    .desc{
+      display: flex;
+      height: 80vh;
+      width: 100%;
+      background-color: aquamarine;
+    }
+    .dtl{
+      margin: 3rem;
+      font-size: 1.5rem;
+    }
+  </style>
+</head> -->
+{% block body %}
+{% if product %}
+
+<div class="desc" style="display: flex; justify-content: space-evenly;
+height: 80vh;
+width: 100%;
+background-color: rgb(172, 244, 220);">
+  <img src="/static/images/{{ product.image }}" alt="{{ product.name }}" style="height: 25rem; ">
+  <div class="dtl" style="width: 50%; padding: 2rem;">
+    <h1>{{ product.name }}</h1>
+    <p style="font-size: 1.5rem; padding: 1rem;">{{ product.description }}</p>
+  </div>
+</div>
+{% else %}
+<p>Product not found</p>
+{% endif %}
+  {% endblock body %}

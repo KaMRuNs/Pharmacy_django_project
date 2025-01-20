@@ -1,0 +1,77 @@
+body{
+    background-color: #ffe5ec;
+    /* color: #fff; */
+    height: 100vh;
+}
+.full{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.full h1{
+    color: #fb6f92;
+}
+.full{
+    margin: 2rem;
+}
+table{
+    margin: 5rem;
+    background-color: #9d8189;
+    border-radius: 2rem;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+}
+/* tr{
+    border-bottom: 12px solid white;
+}
+hr{
+    color: #fff;
+} */
+h1{
+    color: #fff;
+
+}
+th{
+    font-size: 1.5rem;
+    padding: 1rem;
+}
+td{
+    padding: .75rem 3rem;
+    text-align: center;
+}
+td img{
+    height: 5rem;
+    width: 5rem;
+}
+td a{
+    text-decoration: none;
+    color: red;
+}
+h2{
+    color: #590d22;
+}
+
+.empty{
+    color: black;
+    text-align: center;
+    margin: 30px,0,20px,0;
+    padding: 20;
+}
+.error {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.message {
+    font-size: 1.5rem;
+}
+
+.btn {
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+.text-end{
+    margin-top: 200px;
+}

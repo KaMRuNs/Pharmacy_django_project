@@ -1,0 +1,176 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="{% static 'css/equipment.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="nav-logo border">
+                <div class="logo"><i class="fa-solid fa-capsules"></i>edicine</div>
+            </div>
+            <div class="nav-address border">
+                <p class="add1">Deliver to</p>
+                <div class="add-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p class="add2">Bangladesh</p>
+                </div>
+            </div>
+            <div class="nav-search">
+                <form method="GET" action="{% url 'search' %}">
+                    <input type="text" name="query" id="search-bar" placeholder="Search equipment..." 
+                        class="search-box" value="{{ query }}">
+                    <button type="submit" class="search-icon">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+            <a href='{% url "cart_view" %}' class="nav-cart border">
+                <div class="cart-icon">
+                    <i class="fa-solid fa-cart-plus"></i>
+                </div>
+                <p class="cart">Cart</p>
+            </a>
+        </div>
+        <div class="panel">
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'medicine' %}">Medicines</a>
+            <a href="{% url 'products' %}">Products</a>
+            <a href='{% url "equipment" %}'>Equipment</a>
+            <a href="{% url 'online doctors' %}">Doctors</a>
+        </div>
+    </header>
+
+    <main>
+        <h1>Products</h1>
+
+        {% if query %}
+        <h2>Search Results for "{{ query }}":</h2>
+        {% if results %}
+        <div id="product-list">
+            {% for result in results %}
+            <div class="box">
+                <div class="box-content">
+                    {% if result.image %}
+                    <img src="{{ result.image.url }}" alt="{{ result.name }}" class="box-img">
+                    {% endif %}
+                    <h3>{{ result.name }}</h3>
+                    <p class="company category">{{ result.description }}</p>
+                    <p class="prc">Price: {{ result.price }} BDT</p>
+                    <p class="stock">Stock: 
+                        {% if result.quantity > 0 %}
+                        <span style="color: green; font-weight: bold;">{{ result.quantity }}</span>
+                        {% else %}
+                        <span style="color: red; font-weight: bold;">Out of Stock</span>
+                        {% endif %}
+                    </p>
+                    <a href="{% url 'add_to_cart' result.id %}">
+                        <button class="cart-btn">Add to cart</button>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No products found matching your search.</p>
+        {% endif %}
+        {% else %}
+        <div id="product-list">
+            {% for product in products %}
+            <div class="box">
+                <div class="box-content">
+                    {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="box-img">
+                    {% endif %}
+                    <h3>{{ product.name }}</h3>
+                    <p class="company category">{{ product.description }}</p>
+                    <p class="prc">Price: {{ product.price }} BDT</p>
+                    <p class="stock">Stock: 
+                        {% if product.quantity > 0 %}
+                        <span style="color: green; font-weight: bold;">{{ product.quantity }}</span>
+                        {% else %}
+                        <span style="color: red; font-weight: bold;">Out of Stock</span>
+                        {% endif %}
+                    </p>
+                
+                    <a href="{% url 'add_to_cart' product.id %}">
+                        <button class="cart-btn">Add to cart</button>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </main>
+
+    <footer>
+        <div class="foot-panel1">
+            <a href="{% url 'equipment' %}">Back to top</a>
+        </div>
+        <div class="foot-panel2">
+            <ul>
+                <p>Get to Know Us</p>
+                <a>Careers</a>
+                <a>Blog</a>
+                <a>About Medicine</a>
+                <a>Investor Relations</a>
+                <a>Medicine Sciences</a>
+            </ul>
+            <ul>
+                <p>Make Money with Us</p>
+                <a>Sell on Medicine Business</a>
+                <a>Become an Affiliate</a>
+                <a>Your Products</a>
+                <a>Self-Publish with Us</a>
+                <a>Host a Medicine Hub</a>
+                <a>›See More Make Money with Us</a>
+            </ul>
+            <ul>
+                <p>Payment Products</p>
+                <a>Business Card</a>
+                <a>Shop with Points</a>
+                <a>Reload Your Balance</a>
+                <a>Currency Converter</a>
+            </ul>
+            <ul id="help">
+                <p>Let Us Help You</p>
+                <a>Medicine and COVID-19</a>
+                <a>Your Account</a>
+                <a>Your Orders</a>
+                <a>Shipping Rates & Policies</a>
+                <a>Returns & Replacements</a>
+                <a>Manage Your Content and Devices</a>
+                <a>Help</a>
+            </ul>
+        </div>
+        <div class="foot-panel3">
+            <div class="logo"><i class="fa-solid fa-capsules"></i>edicine</div>
+        </div>
+        <div class="foot-panel4">
+            <div class="pages">
+                <a>Conditions of Use</a>
+                <a>Privacy Notice</a>
+                <a>Consumer Health Data Privacy Disclosure</a>
+                <a>Your Ads Privacy Choices</a>
+            </div>
+            <div class="copyright">
+                <p>© 1996-2024, Amazon.com, Inc. or its affiliates</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/equipment.js' %}"></script>
+</body>
+
+</html>

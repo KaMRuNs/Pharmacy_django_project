@@ -1,0 +1,99 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block body %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
+</head>
+{% if cart_items %}
+<div style="display:flex;">
+    <div class="full">
+        <h1>Your Cart</h1>
+        <table>
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Stock Status</th> <!-- Added stock status column -->
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td><img src="{{ item.product.image.url }}" alt=""></td>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.product.price }}/-</td>
+                <td style="font-weight: bold;">{{ item.total_cost }}/-</td>
+                <td>
+                    {% if item.stock_available %}
+                    <span style="color: green; font-weight: bold;">In Stock</span>
+                    {% else %}
+                    <span style="color: red; font-weight: bold;">Out of Stock</span>
+                    {% endif %}
+                </td>
+                <td style="font-weight: bold;">
+                    <a href="{% url 'remove_from_cart' item.product.id %}">Remove</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+       
+       
+    </div>
+    <div class="text-end">
+        <h2 style="margin-bottom:20px">Total: {{ total }}/-</h2>
+        <div id="paypal-button-container"></div>
+    
+        <!-- Include the PayPal JavaScript SDK -->
+        <script
+            src="https://www.paypal.com/sdk/js?client-id=AZip3qrC9apKVjS5m6hKcLe-76SzDqKg04pXI3h65d3ETtBxgZSKh3Kivb1JUiqmEp6M1f0LKbHhUJfP&currency=USD">
+        </script>
+    
+        <script>
+            // Render the PayPal button into #paypal-button-container
+            paypal.Buttons({
+    
+                // Set up the transaction
+                createOrder: function (data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: {{total}}
+                            }
+                        }]
+                    });
+                },
+    
+                // Finalize the transaction
+                onApprove: function (data, actions) {
+                    return actions.order.capture().then(function (details) {
+                        // Show a success message to the buyer
+                        alert('Transaction completed by ' + details.payer.name
+                            .given_name + '!');
+                    });
+                }
+    
+    
+            }).render('#paypal-button-container');
+        </script>
+        {% comment %} <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">
+          Continue
+        </button> {% endcomment %}
+        {% comment %} <div id="paypal-button-container"></div> {% endcomment %}
+         
+       
+        
+        
+      </div>
+      {% else %}
+    </br></br></br>
+    <h1 class="empty">Cart is Empty</h1>
+    </br></br></br></br>
+    {% endif %}
+</div>
+{% endblock body %}

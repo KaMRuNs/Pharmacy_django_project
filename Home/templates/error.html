@@ -1,0 +1,19 @@
+{% extends "base.html" %} 
+{% load static %} 
+{% block body %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/cart.css' %}" />
+</head>
+
+<div class="full">
+    </br></br></br>
+    <h1 class="error" style="color: red; text-align: center;">Error</h1>
+    <h2 class="message" style="text-align: center; font-weight: bold;">{{ message }}</h2>
+    </br></br>
+    <div style="text-align: center;">
+        <a href="{% url 'cart_view' %}" class="btn" style="padding: 10px 20px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px;">Back to Cart</a>
+    </div>
+    </br></br></br>
+</div>
+
+{% endblock body %}
